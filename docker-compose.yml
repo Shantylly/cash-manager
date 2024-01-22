@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  mobile:
+    build: ./mobile
+    volumes:
+      - mobile-volume:/mobile
+      - tmp-volume:/tmp
+      # - ./tmp:/mobile-volume
+
+  server:
+    build: ./server
+    ports:
+      - "8080:8080"
+    volumes:
+      - server-volume:/server
+      - tmp-volume:/tmp
+      # - ./tmp:/server/build
+    depends_on:
+      - mobile
+
+volumes:
+  server-volume:
+  mobile-volume:
+  tmp-volume:
